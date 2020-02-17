@@ -2,15 +2,10 @@ import { User } from "./models/User";
 
 const user = new User({ name: "maimous", age: 666 });
 
-console.log(user.get("name"));
-console.log(user.get("age"));
+user.on("change", () => {
+  console.log("something changed for user");
+});
+user.on("change", () => {}); // another callback for the change event
+user.on("dance", () => {}); // the dance event
 
-user.set({ name: "maimoudaros", age: 999 });
-
-console.log(user.get("name"));
-console.log(user.get("age"));
-
-user.set({ age: 123 });
-
-console.log(user.get("name"));
-console.log(user.get("age"));
+console.log(user);
