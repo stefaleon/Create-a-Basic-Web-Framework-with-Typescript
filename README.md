@@ -1,0 +1,1 @@
+- serve at localhost:7777 with 'npm run parcel'
