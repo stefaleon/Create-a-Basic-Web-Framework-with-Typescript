@@ -1,4 +1,9 @@
+import axios, { AxiosResponse } from "axios";
+
+const BACK_END_URL = "http://localhost:4444/users/";
+
 interface UserProps {
+  id?: number;
   name?: string;
   age?: number;
 }
@@ -32,5 +37,13 @@ export class User {
     }
 
     handlers.forEach(callback => callback());
+  }
+
+  fetch(): void {
+    axios
+      .get(`${BACK_END_URL}${this.get("id")}`)
+      .then((response: AxiosResponse): void => {
+        this.set(response.data);
+      });
   }
 }
