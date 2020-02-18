@@ -1,5 +1,7 @@
 import axios, { AxiosResponse } from "axios";
 
+import { Events } from "./Events";
+
 const BACK_END_URL = "http://localhost:4444/users";
 
 interface UserProps {
@@ -8,10 +10,8 @@ interface UserProps {
   age?: number;
 }
 
-type Callback = () => void;
-
 export class User {
-  events: { [key: string]: Callback[] } = {};
+  events: Events = new Events();
 
   constructor(private data: UserProps) {}
 
@@ -21,22 +21,6 @@ export class User {
 
   set(update: UserProps): void {
     Object.assign(this.data, update);
-  }
-
-  on(eventName: string, callback: Callback): void {
-    const handlers = this.events[eventName] || [];
-    handlers.push(callback);
-    this.events[eventName] = handlers;
-  }
-
-  trigger(eventName: string): void {
-    const handlers = this.events[eventName];
-
-    if (!handlers || handlers.length === 0) {
-      return;
-    }
-
-    handlers.forEach(callback => callback());
   }
 
   fetch(): void {

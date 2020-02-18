@@ -1,10 +1,9 @@
 import { User } from "./models/User";
 
-const user = new User({ id: 1 });
-user.set({ age: 789 });
-user.save();
-user.fetch();
+const user = new User({ name: "maimous", age: 666 });
 
-const user2 = new User({ name: "gatoulas", age: 2 });
-user2.save();
-user2.fetch();
+user.events.on("dance", () => {
+  console.log("user is in a dancing event");
+});
+
+user.events.trigger("dance");
