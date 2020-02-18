@@ -1,1 +1,3 @@
-- serve at localhost:7777 with 'npm run parcel'
+- front-end served at localhost:7777 with parcel
+- back-end served at localhost:4444 with json-server
+- start servers concurrently with `npm start`

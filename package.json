@@ -4,13 +4,19 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "parcel": "parcel index.html -p 7777"
+    "parcel": "parcel index.html -p 7777",
+    "jsonserver": "json-server -p 4444 -w db.json",
+    "start": "concurrently npm:parcel npm:jsonserver"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "concurrently": "^5.1.0",
     "parcel-bundler": "^1.12.4",
     "typescript": "^3.7.5"
+  },
+  "dependencies": {
+    "json-server": "^0.16.0"
   }
 }
