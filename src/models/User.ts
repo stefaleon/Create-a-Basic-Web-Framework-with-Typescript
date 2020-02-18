@@ -1,6 +1,6 @@
 import axios, { AxiosResponse } from "axios";
 
-const BACK_END_URL = "http://localhost:4444/users/";
+const BACK_END_URL = "http://localhost:4444/users";
 
 interface UserProps {
   id?: number;
@@ -41,9 +41,19 @@ export class User {
 
   fetch(): void {
     axios
-      .get(`${BACK_END_URL}${this.get("id")}`)
+      .get(`${BACK_END_URL}/${this.get("id")}`)
       .then((response: AxiosResponse): void => {
         this.set(response.data);
       });
+  }
+
+  save(): void {
+    const id = this.get("id");
+
+    if (id) {
+      axios.put(`${BACK_END_URL}/${id}`, this.data);
+    } else {
+      axios.post(`${BACK_END_URL}`, this.data);
+    }
   }
 }
