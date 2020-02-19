@@ -15,7 +15,31 @@ export class User {
   sync: Sync<UserProps> = new Sync(BACK_END_URL);
   attributes: Attributes<UserProps>;
 
-  constructor(attrs: UserProps) {
+  constructor(attrs?: UserProps) {
     this.attributes = new Attributes<UserProps>(attrs);
+  }
+
+  get get() {
+    return this.attributes.get;
+  }
+
+  get set() {
+    return this.attributes.set;
+  }
+
+  get on() {
+    return this.events.on;
+  }
+
+  get trigger() {
+    return this.events.trigger;
+  }
+
+  get fetch() {
+    return this.sync.fetch;
+  }
+
+  get save() {
+    return this.sync.save;
   }
 }
