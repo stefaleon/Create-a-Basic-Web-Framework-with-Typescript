@@ -1,18 +1,14 @@
 {
   "users": [
     {
-      "id": 1,
-      "age": 789
+      "name": "maimous",
+      "age": 666,
+      "id": 1
     },
     {
-      "name": "gatoulas",
-      "age": 2,
+      "name": "maimous",
+      "age": 666,
       "id": 2
-    },
-    {
-      "name": "gatoulas",
-      "age": 2,
-      "id": 3
     }
   ]
 }

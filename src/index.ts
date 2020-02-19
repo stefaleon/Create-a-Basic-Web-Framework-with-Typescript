@@ -1,9 +1,9 @@
 import { User } from "./models/User";
 
-const user = new User({ name: "maimous", age: 666 });
+const BACK_END_URL = "http://localhost:4444/users";
 
-user.events.on("dance", () => {
-  console.log("user is in a dancing event");
-});
+const user = new User({}, BACK_END_URL);
 
-user.events.trigger("dance");
+const data = { name: "maimous", age: 666 };
+user.sync.save(data);
+user.sync.fetch(1).then(res => console.log(res));

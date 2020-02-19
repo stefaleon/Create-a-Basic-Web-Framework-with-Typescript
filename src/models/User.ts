@@ -1,10 +1,7 @@
-import axios, { AxiosResponse } from "axios";
-
 import { Events } from "./Events";
+import { Sync } from "./Sync";
 
-const BACK_END_URL = "http://localhost:4444/users";
-
-interface UserProps {
+export interface UserProps {
   id?: number;
   name?: string;
   age?: number;
@@ -13,7 +10,9 @@ interface UserProps {
 export class User {
   events: Events = new Events();
 
-  constructor(private data: UserProps) {}
+  sync: Sync = new Sync(this.url);
+
+  constructor(private data: UserProps, private url: string) {}
 
   get(propName: string): number | string {
     return this.data[propName];
@@ -21,23 +20,5 @@ export class User {
 
   set(update: UserProps): void {
     Object.assign(this.data, update);
-  }
-
-  fetch(): void {
-    axios
-      .get(`${BACK_END_URL}/${this.get("id")}`)
-      .then((response: AxiosResponse): void => {
-        this.set(response.data);
-      });
-  }
-
-  save(): void {
-    const id = this.get("id");
-
-    if (id) {
-      axios.put(`${BACK_END_URL}/${id}`, this.data);
-    } else {
-      axios.post(`${BACK_END_URL}`, this.data);
-    }
   }
 }
