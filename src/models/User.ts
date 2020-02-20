@@ -1,3 +1,4 @@
+import { AxiosResponse } from "axios";
 import { Events } from "./Events";
 import { Sync } from "./Sync";
 import { Attributes } from "./Attributes";
@@ -15,7 +16,7 @@ export class User {
   sync: Sync<UserProps> = new Sync(BACK_END_URL);
   attributes: Attributes<UserProps>;
 
-  constructor(attrs?: UserProps) {
+  constructor(attrs: UserProps) {
     this.attributes = new Attributes<UserProps>(attrs);
   }
 
@@ -23,8 +24,9 @@ export class User {
     return this.attributes.get;
   }
 
-  get set() {
-    return this.attributes.set;
+  set(update: UserProps): void {
+    this.attributes.set(update);
+    this.events.trigger("change");
   }
 
   get on() {
@@ -33,13 +35,5 @@ export class User {
 
   get trigger() {
     return this.events.trigger;
-  }
-
-  get fetch() {
-    return this.sync.fetch;
-  }
-
-  get save() {
-    return this.sync.save;
   }
 }

@@ -1,13 +1,11 @@
 import { User } from "./models/User";
 
-const user = new User();
+const user = new User({ name: "papias" });
 
-const data = { name: "maimous", age: 666 };
-user.save(data).then(res => console.log("sync save result: ", res));
-user.fetch(1).then(res => console.log("sync fetch result for id=1: ", res));
+console.log("user name is:", user.get("name"));
 
-user.on("dance", () => {
-  console.log("user is in a dancing event");
+user.on("change", () => {
+  console.log("change event triggered, name is now: ", user.get("name"));
 });
 
-user.trigger("dance");
+user.set({ name: "maimous" });
