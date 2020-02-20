@@ -36,4 +36,16 @@ export class User {
   get trigger() {
     return this.events.trigger;
   }
+
+  fetch(): void {
+    const id = this.get("id");
+
+    if (typeof id !== "number") {
+      throw new Error("fetch: no id provided");
+    }
+
+    this.sync.fetch(id).then((res: AxiosResponse): void => {
+      this.set(res.data);
+    });
+  }
 }
