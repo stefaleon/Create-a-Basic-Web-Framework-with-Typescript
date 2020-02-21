@@ -1,17 +1,11 @@
-import { User } from "./models/User";
+import { Collection } from "./models/Collection";
 
-// const user = User.buildUser({ name: "testuser", age: 321 });
+const BACK_END_URL = "http://localhost:4444/users";
 
-// user.on("save", () => {
-//   console.log("save event triggered, user is: ", user);
-// });
+const collection = new Collection(BACK_END_URL);
 
-// user.save();
-
-const user = User.buildUser({ id: 1 });
-
-user.on("change", () => {
-  console.log("change event triggered, user is: ", user);
+collection.on("change", () => {
+  console.log(collection);
 });
 
-user.fetch();
+collection.fetch();
