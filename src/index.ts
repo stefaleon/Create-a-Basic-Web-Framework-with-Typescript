@@ -1,12 +1,6 @@
-import { Collection } from "./models/Collection";
-import { User, UserProps } from "./models/User";
+import { User } from "./models/User";
 
-const BACK_END_URL = "http://localhost:4444/users";
-
-const collection = new Collection<User, UserProps>(
-  BACK_END_URL,
-  (json: UserProps) => User.buildUser(json)
-);
+const collection = User.buildUserCollection();
 
 collection.on("change", () => {
   console.log(collection);
