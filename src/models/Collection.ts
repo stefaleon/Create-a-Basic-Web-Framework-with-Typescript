@@ -1,15 +1,14 @@
 import axios, { AxiosResponse } from "axios";
 
-import { User, UserProps } from "./User";
 import { Events } from "./Events";
 
 const BACK_END_URL = "http://localhost:4444/users";
 
-export class Collection {
-  models: User[] = [];
+export class Collection<T, K> {
+  models: T[] = [];
   events: Events = new Events();
 
-  constructor(public rootUrl: string) {}
+  constructor(public rootUrl: string, public deserialize: (json: K) => T) {}
 
   get on() {
     return this.events.on;
@@ -21,9 +20,8 @@ export class Collection {
 
   fetch(): void {
     axios.get(BACK_END_URL).then((res: AxiosResponse) => {
-      res.data.map((value: UserProps) => {
-        const user = User.buildUser(value);
-        this.models.push(user);
+      res.data.map((value: K) => {
+        this.models.push(this.deserialize(value));
       });
       this.trigger("change");
     });
