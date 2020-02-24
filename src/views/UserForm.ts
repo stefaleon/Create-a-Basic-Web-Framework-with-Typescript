@@ -1,7 +1,15 @@
 import { User } from "../models/User";
 
 export class UserForm {
-  constructor(public parent: Element, public model: User) {}
+  constructor(public parent: Element, public model: User) {
+    this.renderOnChange();
+  }
+
+  renderOnChange(): void {
+    this.model.on("change", () => {
+      this.render();
+    });
+  }
 
   eventsMap(): { [key: string]: () => void } {
     return {
@@ -53,6 +61,8 @@ export class UserForm {
   }
 
   render(): void {
+    this.parent.innerHTML = ""; //clear all before each new render
+
     const templateElement = document.createElement("template");
     templateElement.innerHTML = this.template();
 
