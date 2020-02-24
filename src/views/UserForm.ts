@@ -19,9 +19,10 @@ export class UserForm {
   //   console.log("mouse entered h1!");
   // }
 
-  onSetAgeButtonClick(): void {
+  onSetAgeButtonClick = (): void => {
     console.log("set age button clicked");
-  }
+    this.model.setRandomAge();
+  };
 
   template(): string {
     return `<div>
