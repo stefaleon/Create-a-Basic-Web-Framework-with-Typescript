@@ -13,23 +13,22 @@ export class UserForm {
 
   eventsMap(): { [key: string]: () => void } {
     return {
-      // "click:button": this.onButtonClick,
-      // "mouseenter:h1": this.onMouseEnterHeader,
-      "click:.set-age": this.onSetAgeButtonClick
+      "click:.set-age": this.onSetAgeButtonClick,
+      "click:.set-name": this.onSetNameButtonClick
     };
   }
 
-  // onButtonClick(): void {
-  //   console.log("button clicked!");
-  // }
-
-  // onMouseEnterHeader(): void {
-  //   console.log("mouse entered h1!");
-  // }
-
   onSetAgeButtonClick = (): void => {
-    console.log("set age button clicked");
     this.model.setRandomAge();
+  };
+
+  onSetNameButtonClick = (): void => {
+    console.log("set name button clicked");
+    const input = this.parent.querySelector("input");
+
+    if (input.value.trim().length > 0) {
+      this.model.set({ name: input.value });
+    }
   };
 
   template(): string {
@@ -37,9 +36,13 @@ export class UserForm {
     <h1>User Form</h1>
     <div>Name: ${this.model.get("name")}</div>
     <div>Age: ${this.model.get("age")}</div>
+    <p>
     <input />
-    <button>Click me</button>
+    <button class='set-name'>Set Name</button>
+    </p>
+    <p>
     <button class="set-age">Set Random Age</button>
+    
     </div>`;
   }
 
@@ -49,8 +52,8 @@ export class UserForm {
     for (let eventKey in eventsMap) {
       const [eventName, selector] = eventKey.split(":");
 
-      console.log(eventName);
-      console.log(selector);
+      // console.log(eventName);
+      // console.log(selector);
 
       fragment
         .querySelectorAll(selector)
