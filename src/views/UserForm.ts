@@ -1,9 +1,12 @@
+import { User } from "../models/User";
+
 export class UserForm {
-  constructor(public parent: Element) {}
+  constructor(public parent: Element, public model: User) {}
 
   eventsMap(): { [key: string]: () => void } {
     return {
-      "click:button": this.onButtonClick
+      "click:button": this.onButtonClick,
+      "mouseenter:h1": this.onMouseEnterHeader
     };
   }
 
@@ -11,9 +14,15 @@ export class UserForm {
     console.log("button clicked!");
   }
 
+  onMouseEnterHeader(): void {
+    console.log("mouse entered h1!");
+  }
+
   template(): string {
     return `<div>
     <h1>User Form</h1>
+    <div>Name: ${this.model.get("name")}</div>
+    <div>Age: ${this.model.get("age")}</div>
     <input />
     <button>Click me</button>
     </div>`;
